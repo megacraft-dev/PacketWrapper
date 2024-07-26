@@ -20,6 +20,7 @@ package com.comphenix.packetwrapper;
 
 import java.util.UUID;
 
+import com.comphenix.packetwrapper.util.IntEnum;
 import org.bukkit.World;
 import org.bukkit.entity.Entity;
 import org.bukkit.entity.EntityType;
@@ -29,7 +30,6 @@ import com.comphenix.protocol.ProtocolLibrary;
 import com.comphenix.protocol.events.PacketContainer;
 import com.comphenix.protocol.events.PacketEvent;
 import com.comphenix.protocol.injector.PacketConstructor;
-import com.comphenix.protocol.reflect.IntEnum;
 
 public class WrapperPlayServerSpawnEntity extends AbstractPacket {
 	public static final PacketType TYPE = PacketType.Play.Server.SPAWN_ENTITY;
@@ -56,6 +56,7 @@ public class WrapperPlayServerSpawnEntity extends AbstractPacket {
 		public static final int THROWN_ENDERPEARL = 65;
 		public static final int WITHER_SKULL_PROJECTILE = 66;
 		public static final int SHULKER_BULLET = 67;
+		public static final int LLAMA_SPIT = 6;
 		public static final int FALLING_BLOCK = 70;
 		public static final int ITEM_FRAME = 71;
 		public static final int EYE_OF_ENDER = 72;
@@ -64,9 +65,11 @@ public class WrapperPlayServerSpawnEntity extends AbstractPacket {
 		public static final int FIREWORK_ROCKET = 76;
 		public static final int LEASH_KNOT = 77;
 		public static final int ARMORSTAND = 78;
+		public static final int EVOKER_FANGS = 79;
 		public static final int FISHING_FLOAT = 90;
 		public static final int SPECTRAL_ARROW = 91;
 		public static final int DRAGON_FIREBALL = 93;
+		public static final int TRIDENT = 94;
 
 		/**
 		 * The singleton instance. Can also be retrieved from the parent class.

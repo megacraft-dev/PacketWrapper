@@ -40,7 +40,7 @@ public class WrapperPlayServerGameStateChange extends AbstractPacket {
 	 * @return The current Reason
 	 */
 	public int getReason() {
-		return handle.getIntegers().read(0);
+		return handle.getGameStateIDs().read(0);
 	}
 
 	/**
@@ -49,7 +49,7 @@ public class WrapperPlayServerGameStateChange extends AbstractPacket {
 	 * @param value - new value.
 	 */
 	public void setReason(int value) {
-		handle.getIntegers().write(0, value);
+		handle.getGameStateIDs().write(0, value);
 	}
 
 	/**

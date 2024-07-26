@@ -180,7 +180,4 @@ public class WrapperPlayServerLightUpdate extends AbstractPacket {
     public void setSkyLightArray(List<BlockPosition> value) {
         handle.getBlockPositionCollectionModifier().write(1, value);
     }
-    
-    // Cannot generate field Block Light arrays
-    // Cannot generate field Block Light array
 }

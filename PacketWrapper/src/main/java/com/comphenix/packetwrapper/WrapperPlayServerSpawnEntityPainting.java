@@ -27,6 +27,8 @@ import com.comphenix.protocol.events.PacketEvent;
 import com.comphenix.protocol.wrappers.BlockPosition;
 import com.comphenix.protocol.wrappers.EnumWrappers.Direction;
 
+import java.util.UUID;
+
 public class WrapperPlayServerSpawnEntityPainting extends AbstractPacket {
 	public static final PacketType TYPE =
 			PacketType.Play.Server.SPAWN_ENTITY_PAINTING;
@@ -81,6 +83,26 @@ public class WrapperPlayServerSpawnEntityPainting extends AbstractPacket {
 	}
 
 	/**
+	 * Retrieve Entity UUID.
+	 * <p>
+	 * Notes: entity's UUID
+	 *
+	 * @return The current Entity UUID
+	 */
+	public UUID getB() {
+		return handle.getUUIDs().read(0);
+	}
+
+	/**
+	 * Set Entity UUID.
+	 *
+	 * @param value - new value.
+	 */
+	public void setB(UUID value) {
+		handle.getUUIDs().write(0, value);
+	}
+
+	/**
 	 * Retrieve Location.
 	 * <p>
 	 * Notes: center coordinates
@@ -109,10 +131,10 @@ public class WrapperPlayServerSpawnEntityPainting extends AbstractPacket {
 	}
 
 	public int getPaintingId() {
-		return handle.getIntegers().read(0);
+		return handle.getIntegers().read(1);
 	}
 
 	public void setPaintingId(int value) {
-		handle.getIntegers().write(0, value);
+		handle.getIntegers().write(1, value);
 	}
 }

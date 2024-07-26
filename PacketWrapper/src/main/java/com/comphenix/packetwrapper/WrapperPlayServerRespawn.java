@@ -18,12 +18,10 @@
  */
 package com.comphenix.packetwrapper;
 
-import org.bukkit.WorldType;
+import org.bukkit.World;
 
-import com.comphenix.packetwrapper.util.Removed;
 import com.comphenix.protocol.PacketType;
 import com.comphenix.protocol.events.PacketContainer;
-import com.comphenix.protocol.wrappers.EnumWrappers.Difficulty;
 import com.comphenix.protocol.wrappers.EnumWrappers.NativeGameMode;
 
 public class WrapperPlayServerRespawn extends AbstractPacket {
@@ -39,53 +37,47 @@ public class WrapperPlayServerRespawn extends AbstractPacket {
 	}
 
 	/**
-	 * Retrieve Dimension.
-	 * <p>
-	 * Notes: -1: The Nether, 0: The Overworld, 1: The End
-	 * 
-	 * @return The current Dimension
+	 * Retrieve World.
+	 *
+	 * @return The current World
 	 */
-	public int getDimension() {
-		return handle.getDimensions().optionRead(0).orElse(0);
+	public World getWorld() {
+		return handle.getWorldKeys().read(0);
 	}
 
 	/**
-	 * Set Dimension.
-	 * 
+	 * Set World.
+	 *
 	 * @param value - new value.
 	 */
-	public void setDimension(int value) {
-		handle.getDimensions().write(0, value);
+	public void setWorld(World value) {
+		handle.getWorldKeys().write(0, value);
 	}
 
 	/**
-	 * Retrieve Difficulty.
-	 * <p>
-	 * Notes: 0 thru 3 for Peaceful, Easy, Normal, Hard.
-	 * 
-	 * @return The current Difficulty
+	 * Retrieve Seed.
+	 *
+	 * @return The current Seed
 	 */
-	@Removed
-	public Difficulty getDifficulty() {
-		return handle.getDifficulties().read(0);
+	public long getSeed() {
+		return this.handle.getLongs().read(0);
 	}
 
 	/**
-	 * Set Difficulty.
-	 * 
+	 * Set Seed.
+	 *
 	 * @param value - new value.
 	 */
-	@Removed
-	public void setDifficulty(Difficulty value) {
-		handle.getDifficulties().write(0, value);
+	public void setSeed(long value) {
+		this.handle.getLongs().write(0, value);
 	}
 
 	/**
 	 * Retrieve Gamemode.
 	 * <p>
-	 * Notes: 0: survival, 1: creative, 2: adventure. The hardcore flag is not
+	 * Notes: 0: survival, 1: creative, 2: adventure, 3: spectator. The hardcore flag is not
 	 * included
-	 * 
+	 *
 	 * @return The current Gamemode
 	 */
 	public NativeGameMode getGamemode() {
@@ -94,7 +86,7 @@ public class WrapperPlayServerRespawn extends AbstractPacket {
 
 	/**
 	 * Set Gamemode.
-	 * 
+	 *
 	 * @param value - new value.
 	 */
 	public void setGamemode(NativeGameMode value) {
@@ -102,23 +94,78 @@ public class WrapperPlayServerRespawn extends AbstractPacket {
 	}
 
 	/**
-	 * Retrieve Level Type.
+	 * Retrieve Previous gamemode.
 	 * <p>
-	 * Notes: same as Join Game
-	 * 
-	 * @return The current Level Type
+	 * Notes: 0: survival, 1: creative, 2: adventure, 3: spectator. The hardcore flag is not
+	 * included. The previous gamemode.
+	 *
+	 * @return The previous Gamemode
 	 */
-	public WorldType getLevelType() {
-		return handle.getWorldTypeModifier().read(0);
+	public NativeGameMode getPreviousGamemode() {
+		return handle.getGameModes().read(1);
 	}
 
 	/**
-	 * Set Level Type.
-	 * 
+	 * Set Previous gamemode.
+	 *
 	 * @param value - new value.
 	 */
-	public void setLevelType(WorldType value) {
-		handle.getWorldTypeModifier().write(0, value);
+	public void setPreviousGamemode(NativeGameMode value) {
+		handle.getGameModes().write(1, value);
+	}
+
+	/**
+	 * Retrieve Debug.
+	 *
+	 * @return The current Debug
+	 */
+	public boolean getDebug() {
+		return this.handle.getBooleans().read(0);
+	}
+
+	/**
+	 * Set Debug.
+	 *
+	 * @param value - new value.
+	 */
+	public void setDebug(boolean value) {
+		this.handle.getBooleans().write(0, value);
+	}
+
+	/**
+	 * Retrieve Flat.
+	 *
+	 * @return The current Flat
+	 */
+	public boolean getFlat() {
+		return this.handle.getBooleans().read(1);
+	}
+
+	/**
+	 * Set Flat.
+	 *
+	 * @param value - new value.
+	 */
+	public void setFlat(boolean value) {
+		this.handle.getBooleans().write(1, value);
+	}
+
+	/**
+	 * Retrieve Copy Metadata.
+	 *
+	 * @return The current Copy Metadata
+	 */
+	public boolean getCopyMetadata() {
+		return this.handle.getBooleans().read(2);
+	}
+
+	/**
+	 * Set Copy Metadata.
+	 *
+	 * @param value - new value.
+	 */
+	public void setCopyMetadata(boolean value) {
+		this.handle.getBooleans().write(2, value);
 	}
 
 }

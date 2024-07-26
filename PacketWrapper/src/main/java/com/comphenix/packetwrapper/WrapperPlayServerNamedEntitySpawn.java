@@ -24,11 +24,9 @@ import org.bukkit.World;
 import org.bukkit.entity.Entity;
 import org.bukkit.util.Vector;
 
-import com.comphenix.packetwrapper.util.Removed;
 import com.comphenix.protocol.PacketType;
 import com.comphenix.protocol.events.PacketContainer;
 import com.comphenix.protocol.events.PacketEvent;
-import com.comphenix.protocol.wrappers.WrappedDataWatcher;
 
 public class WrapperPlayServerNamedEntitySpawn extends AbstractPacket {
 	public static final PacketType TYPE =
@@ -181,27 +179,5 @@ public class WrapperPlayServerNamedEntitySpawn extends AbstractPacket {
 	 */
 	public void setPitch(float value) {
 		handle.getBytes().write(1, (byte) (value * 256.0F / 360.0F));
-	}
-
-	/**
-	 * Retrieve Metadata.
-	 * <p>
-	 * Notes: the client will crash if no metadata is sent
-	 * 
-	 * @return The current Metadata
-	 */
-	@Removed
-	public WrappedDataWatcher getMetadata() {
-		return handle.getDataWatcherModifier().read(0);
-	}
-
-	/**
-	 * Set Metadata.
-	 * 
-	 * @param value - new value.
-	 */
-	@Removed
-	public void setMetadata(WrappedDataWatcher value) {
-		handle.getDataWatcherModifier().write(0, value);
 	}
 }

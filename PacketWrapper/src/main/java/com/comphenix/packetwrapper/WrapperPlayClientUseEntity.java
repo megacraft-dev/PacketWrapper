@@ -18,6 +18,7 @@
  */
 package com.comphenix.packetwrapper;
 
+import com.comphenix.protocol.wrappers.EnumWrappers;
 import org.bukkit.World;
 import org.bukkit.entity.Entity;
 import org.bukkit.util.Vector;
@@ -113,5 +114,43 @@ public class WrapperPlayClientUseEntity extends AbstractPacket {
 	 */
 	public void setTargetVector(Vector value) {
 		handle.getVectors().write(0, value);
+	}
+
+	/**
+	 * Retrieve Hand.
+	 * <p>
+	 *
+	 * Notes: Only if {@link #getType()} is {@link EntityUseAction#INTERACT} or {@link EntityUseAction#INTERACT_AT}.
+	 * Notes: 0: Main hand, 1: Off hand
+	 * @return The current Hand
+	 */
+	public EnumWrappers.Hand getHand() {
+		return handle.getHands().read(0);
+	}
+
+	/**
+	 * Set Hand.
+	 * @param value - new value.
+	 */
+	public void setHand(EnumWrappers.Hand value) {
+		handle.getHands().write(0, value);
+	}
+
+	/**
+	 * Retrieve if client is sneaking.
+	 *
+	 * @return If client is sneaking
+	 */
+	public boolean isSneaking() {
+		return handle.getBooleans().read(0);
+	}
+
+	/**
+	 * Set the client sneaking.
+	 *
+	 * @param value - new value.
+	 */
+	public void setSneaking(boolean value) {
+		handle.getBooleans().write(0, value);
 	}
 }

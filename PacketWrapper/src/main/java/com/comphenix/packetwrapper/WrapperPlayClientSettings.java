@@ -20,6 +20,7 @@ package com.comphenix.packetwrapper;
 
 import com.comphenix.protocol.PacketType;
 import com.comphenix.protocol.events.PacketContainer;
+import com.comphenix.protocol.wrappers.EnumWrappers;
 import com.comphenix.protocol.wrappers.EnumWrappers.ChatVisibility;
 
 public class WrapperPlayClientSettings extends AbstractPacket {
@@ -132,6 +133,26 @@ public class WrapperPlayClientSettings extends AbstractPacket {
 	 */
 	public void setDisplayedSkinParts(int value) {
 		handle.getIntegers().write(1, value);
+	}
+
+	/**
+	 * Retrieve Hand.
+	 * <p>
+	 * Notes: 0: Main hand, 1: Off hand
+	 *
+	 * @return The current Hand
+	 */
+	public EnumWrappers.Hand getHand() {
+		return handle.getHands().read(0);
+	}
+
+	/**
+	 * Set Hand.
+	 *
+	 * @param value - new value.
+	 */
+	public void setHand(EnumWrappers.Hand value) {
+		handle.getHands().write(0, value);
 	}
 
 }

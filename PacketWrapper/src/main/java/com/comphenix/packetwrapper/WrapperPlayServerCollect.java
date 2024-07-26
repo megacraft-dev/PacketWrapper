@@ -69,4 +69,22 @@ public class WrapperPlayServerCollect extends AbstractPacket {
 		handle.getIntegers().write(1, value);
 	}
 
+	/**
+	 * Retrieve Item Count.
+	 *
+	 * @return The current Item Count
+	 */
+	public int getItemCount() {
+		return handle.getIntegers().read(2);
+	}
+
+	/**
+	 * Set Item Count.
+	 *
+	 * @param value - new value.
+	 */
+	public void setItemCount(int value) {
+		handle.getIntegers().write(2, value);
+	}
+
 }

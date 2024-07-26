@@ -20,6 +20,9 @@ package com.comphenix.packetwrapper;
 
 import com.comphenix.protocol.PacketType;
 import com.comphenix.protocol.events.PacketContainer;
+import com.comphenix.protocol.wrappers.WrappedStatistic;
+
+import java.util.Map;
 
 public class WrapperPlayServerStatistic extends AbstractPacket {
 	public static final PacketType TYPE = PacketType.Play.Server.STATISTIC;
@@ -33,5 +36,23 @@ public class WrapperPlayServerStatistic extends AbstractPacket {
 		super(packet, TYPE);
 	}
 
-	// TODO fix upon request
+	/**
+	 * Retrieve Statistic.
+	 * <p>
+	 * Notes: will only send the changed values if previously requested.
+	 *
+	 * @return The current Location
+	 */
+	public Map<WrappedStatistic, Integer> getStatisticMap() {
+		return this.handle.getStatisticMaps().read(0);
+	}
+
+	/**
+	 * Set Statistic.
+	 *
+	 * @param value - new value.
+	 */
+	public void setStatisticMap(Map<WrappedStatistic, Integer> value) {
+		this.handle.getStatisticMaps().write(0, value);
+	}
 }

@@ -18,9 +18,9 @@
  */
 package com.comphenix.packetwrapper;
 
+import com.comphenix.packetwrapper.util.IntEnum;
 import com.comphenix.protocol.PacketType;
 import com.comphenix.protocol.events.PacketContainer;
-import com.comphenix.protocol.reflect.IntEnum;
 import com.comphenix.protocol.wrappers.WrappedChatComponent;
 
 public class WrapperPlayServerScoreboardObjective extends AbstractPacket {

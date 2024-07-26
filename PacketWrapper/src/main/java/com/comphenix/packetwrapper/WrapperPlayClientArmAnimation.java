@@ -20,6 +20,7 @@ package com.comphenix.packetwrapper;
 
 import com.comphenix.protocol.PacketType;
 import com.comphenix.protocol.events.PacketContainer;
+import com.comphenix.protocol.wrappers.EnumWrappers;
 
 public class WrapperPlayClientArmAnimation extends AbstractPacket {
 	public static final PacketType TYPE = PacketType.Play.Client.ARM_ANIMATION;
@@ -31,5 +32,13 @@ public class WrapperPlayClientArmAnimation extends AbstractPacket {
 
 	public WrapperPlayClientArmAnimation(PacketContainer packet) {
 		super(packet, TYPE);
+	}
+
+	public EnumWrappers.Hand getHand() {
+		return this.handle.getHands().read(0);
+	}
+
+	public void setHand(EnumWrappers.Hand value) {
+		this.handle.getHands().write(0, value);
 	}
 }

@@ -21,6 +21,7 @@ package com.comphenix.packetwrapper;
 import com.comphenix.protocol.PacketType;
 import com.comphenix.protocol.events.PacketContainer;
 import com.comphenix.protocol.wrappers.EnumWrappers.CombatEventType;
+import com.comphenix.protocol.wrappers.WrappedChatComponent;
 
 public class WrapperPlayServerCombatEvent extends AbstractPacket {
 	public static final PacketType TYPE = PacketType.Play.Server.COMBAT_EVENT;
@@ -118,19 +119,19 @@ public class WrapperPlayServerCombatEvent extends AbstractPacket {
 		}
 	}
 
-	public String getMessage() {
+	public WrappedChatComponent getMessage() {
 		if (getEvent() != CombatEventType.ENTITY_DIED)
 			throw new IllegalStateException(
 					"Message only exists for ENTITY_DEAD");
 
-		return handle.getStrings().read(0);
+		return handle.getChatComponents().read(0);
 	}
 
-	public void setMessage(String value) {
+	public void setMessage(WrappedChatComponent value) {
 		if (getEvent() != CombatEventType.ENTITY_DIED)
 			throw new IllegalStateException(
 					"Message only exists for ENTITY_DEAD");
 
-		handle.getStrings().write(0, value);
+		handle.getChatComponents().write(0, value);
 	}
 }

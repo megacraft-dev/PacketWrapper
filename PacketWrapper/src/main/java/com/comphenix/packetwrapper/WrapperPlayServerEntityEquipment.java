@@ -18,6 +18,8 @@
  */
 package com.comphenix.packetwrapper;
 
+import com.comphenix.protocol.wrappers.EnumWrappers;
+import com.comphenix.protocol.wrappers.Pair;
 import org.bukkit.World;
 import org.bukkit.entity.Entity;
 import org.bukkit.inventory.ItemStack;
@@ -26,6 +28,8 @@ import com.comphenix.protocol.PacketType;
 import com.comphenix.protocol.events.PacketContainer;
 import com.comphenix.protocol.events.PacketEvent;
 import com.comphenix.protocol.wrappers.EnumWrappers.ItemSlot;
+
+import java.util.List;
 
 public class WrapperPlayServerEntityEquipment extends AbstractPacket {
 	public static final PacketType TYPE =
@@ -80,31 +84,23 @@ public class WrapperPlayServerEntityEquipment extends AbstractPacket {
 		return getEntity(event.getPlayer().getWorld());
 	}
 
-	public ItemSlot getSlot() {
-		return handle.getItemSlots().read(0);
-	}
-
-	public void setSlot(ItemSlot value) {
-		handle.getItemSlots().write(0, value);
-	}
-
 	/**
-	 * Retrieve Item.
+	 * Retrieve Slots.
 	 * <p>
 	 * Notes: item in slot format
-	 * 
-	 * @return The current Item
+	 *
+	 * @return The current Slots
 	 */
-	public ItemStack getItem() {
-		return handle.getItemModifier().read(0);
+	public List<Pair<ItemSlot, ItemStack>> getSlots() {
+		return this.handle.getSlotStackPairLists().read(0);
 	}
 
 	/**
-	 * Set Item.
-	 * 
+	 * Set Slots.
+	 *
 	 * @param value - new value.
 	 */
-	public void setItem(ItemStack value) {
-		handle.getItemModifier().write(0, value);
+	public void setSlots(List<Pair<EnumWrappers.ItemSlot, ItemStack>> value) {
+		this.handle.getSlotStackPairLists().write(0, value);
 	}
 }

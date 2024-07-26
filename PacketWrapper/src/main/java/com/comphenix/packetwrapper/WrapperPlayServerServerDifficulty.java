@@ -38,7 +38,7 @@ public class WrapperPlayServerServerDifficulty extends AbstractPacket {
 	/**
 	 * Retrieve Difficulty.
 	 * <p>
-	 * Notes: 0:PEACEFUL, 1:EASY, 2:NORMAL, 3: HARD
+	 * Notes: 0: peaceful, 1: easy, 2: normal, 3: hard.
 	 * 
 	 * @return The current Difficulty
 	 */
@@ -53,6 +53,24 @@ public class WrapperPlayServerServerDifficulty extends AbstractPacket {
 	 */
 	public void setDifficulty(Difficulty value) {
 		handle.getDifficulties().write(0, value);
+	}
+
+	/**
+	 * Retrieve Difficulty locked?.
+	 *
+	 * @return The current Difficulty locked?
+	 */
+	public boolean getLocked() {
+		return handle.getBooleans().read(0);
+	}
+
+	/**
+	 * Set Difficulty locked?.
+	 *
+	 * @param value - new value.
+	 */
+	public void setLocked(boolean value) {
+		handle.getBooleans().write(0, value);
 	}
 
 }

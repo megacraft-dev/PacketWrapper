@@ -20,50 +20,45 @@ package com.comphenix.packetwrapper;
 
 import com.comphenix.protocol.PacketType;
 import com.comphenix.protocol.events.PacketContainer;
-import com.comphenix.protocol.wrappers.MinecraftKey;
+import net.minecraft.server.v1_16_R3.RecipeBookType;
 
-public class WrapperPlayServerAutoRecipe extends AbstractPacket {
+public class WrapperPlayClientRecipeSettings extends AbstractPacket {
 
-    public static final PacketType TYPE = PacketType.Play.Server.AUTO_RECIPE;
-    
-    public WrapperPlayServerAutoRecipe() {
+    public static final PacketType TYPE = PacketType.Play.Client.RECIPE_SETTINGS;
+
+    public WrapperPlayClientRecipeSettings() {
         super(new PacketContainer(TYPE), TYPE);
         handle.getModifier().writeDefaults();
     }
-    
-    public WrapperPlayServerAutoRecipe(PacketContainer packet) {
+
+    public WrapperPlayClientRecipeSettings(PacketContainer packet) {
         super(packet, TYPE);
     }
-    
-    /**
-     * Retrieve Window ID.
-     * @return The current Window ID
-     */
-    public int getWindowId() {
-        return handle.getIntegers().read(0);
-    }
-    
-    /**
-     * Set Window ID.
-     * @param value - new value.
-     */
-    public void setWindowId(int value) {
-        handle.getIntegers().write(0, value);
+
+    public RecipeBookType getBookType() {
+        return handle.getEnumModifier(RecipeBookType.class, 0).readSafely(0);
     }
 
-    /**
-     * Retrieve Recipe.
-     * @return The current Recipe
-     */
-    public MinecraftKey getRecipe() {
-        return this.handle.getMinecraftKeys().read(0);
+    public void setBookType(RecipeBookType value) {
+        handle.getEnumModifier(RecipeBookType.class, 0).writeSafely(0, value);
     }
 
-    /**
-     * Set Recipe.
-     * @param value - new value.
-     */
-    public void setRecipe(MinecraftKey value) {
-        this.handle.getMinecraftKeys().write(0, value);
+    // Modifier for recipe can be created upon request
+
+    public boolean isBookOpen() {
+        return handle.getBooleans().read(0);
     }
+
+    public void setBookOpen(boolean value) {
+        handle.getBooleans().write(0, value);
+    }
+
+    public boolean isFilterActive() {
+        return handle.getBooleans().read(1);
+    }
+
+    public void setFilterActive(boolean value) {
+        handle.getBooleans().write(1, value);
+    }
+
 }

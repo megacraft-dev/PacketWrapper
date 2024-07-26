@@ -20,37 +20,128 @@ package com.comphenix.packetwrapper;
 
 import com.comphenix.protocol.PacketType;
 import com.comphenix.protocol.events.PacketContainer;
+import org.bukkit.inventory.MerchantRecipe;
+
+import java.util.List;
 
 public class WrapperPlayServerOpenWindowMerchant extends AbstractPacket {
 
     public static final PacketType TYPE = PacketType.Play.Server.OPEN_WINDOW_MERCHANT;
-    
+
     public WrapperPlayServerOpenWindowMerchant() {
         super(new PacketContainer(TYPE), TYPE);
         handle.getModifier().writeDefaults();
     }
-    
+
     public WrapperPlayServerOpenWindowMerchant(PacketContainer packet) {
         super(packet, TYPE);
     }
-    
-    // Cannot generate getter a
-    // Cannot generate setter a
-    // Cannot find type for b
-    // Cannot find type for b
-    // Cannot find type for b
-    // Cannot find type for b
-    // Cannot find type for b
-    // Cannot find type for b
-    // Cannot find type for b
-    // Cannot find type for b
-    // Cannot find type for b
-    // Cannot find type for b
-    // Cannot find type for b
-    // Cannot find type for b
-    // Cannot find type for b
-    // Cannot find type for b
-    // Cannot find type for b
-    // Cannot find type for b
-    // Cannot find type for b
+
+    /**
+     * Retrieve Window ID.
+     *
+     * @return The current Window ID?
+     */
+    public int getWindowId() {
+        return this.handle.getIntegers().read(0);
+    }
+
+    /**
+     * Set Window ID.
+     *
+     * @param value - new value.
+     */
+    public void setWindowId(int value) {
+        this.handle.getIntegers().write(0, value);
+    }
+
+    /**
+     * Retrieve Trades.
+     *
+     * @return The current Trades
+     */
+    public List<MerchantRecipe> getTrades() {
+        return this.handle.getMerchantRecipeLists().read(0);
+    }
+
+    /**
+     * Set Trades.
+     *
+     * @param value - new value.
+     */
+    public void setTrades(List<MerchantRecipe> value) {
+        this.handle.getMerchantRecipeLists().write(0, value);
+    }
+
+    /**
+     * Retrieve Villager level.
+     *
+     * @return The current Villager level
+     */
+    public int getVillagerLevel() {
+        return this.handle.getIntegers().read(1);
+    }
+
+    /**
+     * Set Villager level.
+     *
+     * @param value - new value.
+     */
+    public void setVillagerLevel(int value) {
+        this.handle.getIntegers().write(1, value);
+    }
+
+    /**
+     * Retrieve Experience.
+     *
+     * @return The current Experience
+     */
+    public int getExperience() {
+        return this.handle.getIntegers().read(2);
+    }
+
+    /**
+     * Set Experience.
+     *
+     * @param value - new value.
+     */
+    public void setExperience(int value) {
+        this.handle.getIntegers().write(2, value);
+    }
+
+    /**
+     * Retrieve Show progress.
+     *
+     * @return The current Show progress
+     */
+    public boolean getShowProgress() {
+        return this.handle.getBooleans().read(0);
+    }
+
+    /**
+     * Set Show progress.
+     *
+     * @param value - new value.
+     */
+    public void setShowProgress(boolean value) {
+        this.handle.getBooleans().write(0, value);
+    }
+
+    /**
+     * Retrieve Can restock.
+     *
+     * @return The current Can restock
+     */
+    public boolean getCanRestock() {
+        return this.handle.getBooleans().read(1);
+    }
+
+    /**
+     * Set Can restock.
+     *
+     * @param value - new value.
+     */
+    public void setCanRestock(boolean value) {
+        this.handle.getBooleans().write(1, value);
+    }
 }

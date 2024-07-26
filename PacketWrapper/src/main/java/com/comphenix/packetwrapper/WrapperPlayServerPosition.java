@@ -158,4 +158,25 @@ public class WrapperPlayServerPosition extends AbstractPacket {
 	public void setFlags(Set<PlayerTeleportFlag> value) {
 		getFlagsModifier().write(0, value);
 	}
+
+
+	/**
+	 * Retrieve Teleport ID.
+	 * <p>
+	 * Notes: Client should confirm this packet with Teleport Confirm containing the same Teleport ID.
+	 *
+	 * @return The current Teleport ID
+	 */
+	public int getTeleportId() {
+		return handle.getIntegers().read(0);
+	}
+
+	/**
+	 * Set Teleport ID.
+	 *
+	 * @param value - new value.
+	 */
+	public void setTeleportId(int value) {
+		handle.getIntegers().write(0, value);
+	}
 }

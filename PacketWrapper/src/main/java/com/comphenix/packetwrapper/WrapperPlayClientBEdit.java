@@ -21,18 +21,19 @@ package com.comphenix.packetwrapper;
 import com.comphenix.protocol.PacketType;
 import com.comphenix.protocol.events.PacketContainer;
 
+import com.comphenix.protocol.wrappers.EnumWrappers;
 import org.bukkit.inventory.ItemStack;
 
-public class WrapperPlayClientBookEdit extends AbstractPacket {
+public class WrapperPlayClientBEdit extends AbstractPacket {
 
     public static final PacketType TYPE = PacketType.Play.Client.B_EDIT;
     
-    public WrapperPlayClientBookEdit() {
+    public WrapperPlayClientBEdit() {
         super(new PacketContainer(TYPE), TYPE);
         handle.getModifier().writeDefaults();
     }
     
-    public WrapperPlayClientBookEdit(PacketContainer packet) {
+    public WrapperPlayClientBEdit(PacketContainer packet) {
         super(packet, TYPE);
     }
     
@@ -68,5 +69,13 @@ public class WrapperPlayClientBookEdit extends AbstractPacket {
      */
     public void setIsSigning(boolean value) {
         handle.getBooleans().write(0, value);
+    }
+
+    public EnumWrappers.Hand getHand() {
+        return this.handle.getHands().read(0);
+    }
+
+    public void setHand(EnumWrappers.Hand value) {
+        this.handle.getHands().write(0, value);
     }
 }

@@ -19,6 +19,7 @@
 package com.comphenix.packetwrapper;
 
 import java.util.Arrays;
+import java.util.UUID;
 
 import com.comphenix.protocol.PacketType;
 import com.comphenix.protocol.events.PacketContainer;
@@ -41,7 +42,7 @@ public class WrapperPlayServerChat extends AbstractPacket {
 	/**
 	 * Retrieve the chat message.
 	 * <p>
-	 * Limited to 32767 bytes
+	 * Limited to 262144 bytes
 	 * 
 	 * @return The current message
 	 */
@@ -69,9 +70,9 @@ public class WrapperPlayServerChat extends AbstractPacket {
 	/**
 	 * Retrieve Position.
 	 * <p>
-	 * Notes: 0 - Chat (chat box) ,1 - System Message (chat box), 2 - Above
+	 * Notes: 0 - Chat (chat box), 1 - System Message (chat box), 2 - Above
 	 * action bar
-	 * 
+	 *
 	 * @return The current Position
 	 * @deprecated Magic values replaced by enum
 	 */
@@ -87,7 +88,7 @@ public class WrapperPlayServerChat extends AbstractPacket {
 
 	/**
 	 * Set Position.
-	 * 
+	 *
 	 * @param value - new value.
 	 * @deprecated Magic values replaced by enum
 	 */
@@ -100,5 +101,26 @@ public class WrapperPlayServerChat extends AbstractPacket {
 			Arrays.stream(ChatType.values()).filter(t -> t.getId() == value).findAny()
 			      .ifPresent(t -> handle.getChatTypes().writeSafely(0, t));
 		}
+	}
+
+	/**
+	 * Retrieve Sender.
+	 * <p>
+	 * Notes: Used by the Notchian client for the disableChat launch option.
+	 * Setting both longs to 0 will always display the message regardless of the setting.
+	 *
+	 * @return The current Sender
+	 */
+	public UUID getSender() {
+		return this.handle.getUUIDs().read(0);
+	}
+
+	/**
+	 * Set Sender.
+	 *
+	 * @param value - new value.
+	 */
+	public void setSender(UUID value) {
+		this.handle.getUUIDs().write(0, value);
 	}
 }

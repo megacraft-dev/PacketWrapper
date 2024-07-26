@@ -18,16 +18,16 @@
  */
 package com.comphenix.packetwrapper;
 
+import com.comphenix.protocol.wrappers.BukkitConverters;
 import org.bukkit.World;
-import org.bukkit.WorldType;
 import org.bukkit.entity.Entity;
 
-import com.comphenix.packetwrapper.util.Removed;
 import com.comphenix.protocol.PacketType;
 import com.comphenix.protocol.events.PacketContainer;
 import com.comphenix.protocol.events.PacketEvent;
-import com.comphenix.protocol.wrappers.EnumWrappers.Difficulty;
 import com.comphenix.protocol.wrappers.EnumWrappers.NativeGameMode;
+
+import java.util.Set;
 
 public class WrapperPlayServerLogin extends AbstractPacket {
 	public static final PacketType TYPE = PacketType.Play.Server.LOGIN;
@@ -82,10 +82,27 @@ public class WrapperPlayServerLogin extends AbstractPacket {
 	}
 
 	/**
+	 * Retrieve Hardcore.
+	 *
+	 * @return The current Hardcore
+	 */
+	public boolean isHardcore() {
+		return this.handle.getBooleans().read(0);
+	}
+
+	/**
+	 * Set Hardcore.
+	 *
+	 * @param value - new value.
+	 */
+	public void setHardcore(boolean value) {
+		this.handle.getBooleans().write(0, value);
+	}
+
+	/**
 	 * Retrieve Gamemode.
 	 * <p>
-	 * Notes: 0: survival, 1: creative, 2: adventure. Bit 3 (0x8) is the
-	 * hardcore flag
+	 * Notes: 0: survival, 1: creative, 2: adventure, 3: spectator.
 	 * 
 	 * @return The current Gamemode
 	 */
@@ -103,45 +120,78 @@ public class WrapperPlayServerLogin extends AbstractPacket {
 	}
 
 	/**
-	 * Retrieve Dimension.
+	 * Retrieve Previous gamemode.
 	 * <p>
-	 * Notes: -1: nether, 0: overworld, 1: end
-	 * 
-	 * @return The current Dimension
+	 * Notes: 0: survival, 1: creative, 2: adventure, 3: spectator. The hardcore flag is not included.
+	 * The previous gamemode. Defaults to -1 if there is no previous gamemode.
+	 *
+	 * @return The previous Gamemode
 	 */
-	public int getDimension() {
-		return handle.getIntegers().read(0);
+	public NativeGameMode getPreviousGamemode() {
+		return handle.getGameModes().read(1);
 	}
 
 	/**
-	 * Set Dimension.
+	 * Set Previous gamemode.
+	 *
+	 * @param value - new value.
+	 */
+	public void setPreviousGamemode(NativeGameMode value) {
+		handle.getGameModes().write(1, value);
+	}
+
+	/**
+	 * Retrieve Worlds.
+	 *
+	 * @return The current Worlds
+	 */
+	public Set<World> getWorlds() {
+		return this.handle.getSets(BukkitConverters.getWorldConverter()).read(0);
+	}
+
+	/**
+	 * Set Worlds.
+	 *
+	 * @param value - new value.
+	 */
+	public void setWorlds(Set<World> value) {
+		this.handle.getSets(BukkitConverters.getWorldConverter()).write(0, value);
+	}
+
+	/**
+	 * Retrieve World.
+	 *
+	 * @return The current World
+	 */
+	public World getWorld() {
+		return handle.getWorldKeys().read(0);
+	}
+
+	/**
+	 * Set World.
 	 * 
 	 * @param value - new value.
 	 */
-	public void setDimension(int value) {
-		handle.getIntegers().write(0, value);
+	public void setWorld(World value) {
+		handle.getWorldKeys().write(0, value);
 	}
 
 	/**
-	 * Retrieve Difficulty.
-	 * <p>
-	 * Notes: 0 thru 3 for Peaceful, Easy, Normal, Hard
-	 * 
-	 * @return The current Difficulty
+	 * Retrieve Seed.
+	 *
+	 * @return The current Seed
 	 */
-	@Removed
-	public Difficulty getDifficulty() {
-		return handle.getDifficulties().read(0);
+	public long getSeed() {
+		return this.handle.getLongs().read(0);
 	}
 
 	/**
-	 * Set Difficulty.
-	 * 
+	 * Set Seed.
+	 *
 	 * @param value - new value.
 	 */
-	@Removed
-	public void setDifficulty(Difficulty value) {
-		handle.getDifficulties().write(0, value);
+	public void setSeed(long value) {
+		this.handle.getLongs().write(0, value);
 	}
 
 	/**
@@ -152,7 +202,7 @@ public class WrapperPlayServerLogin extends AbstractPacket {
 	 * @return The current Max Players
 	 */
 	public int getMaxPlayers() {
-		return handle.getIntegers().read(1);
+		return handle.getIntegers().read(2);
 	}
 
 	/**
@@ -161,27 +211,27 @@ public class WrapperPlayServerLogin extends AbstractPacket {
 	 * @param value - new value.
 	 */
 	public void setMaxPlayers(int value) {
-		handle.getIntegers().write(0, value);
+		handle.getIntegers().write(2, value);
 	}
 
 	/**
-	 * Retrieve Level Type.
+	 * Retrieve View distance.
 	 * <p>
-	 * Notes: default, flat, largeBiomes, amplified, default_1_1
-	 * 
-	 * @return The current Level Type
+	 * Notes: render distance (2-32).
+	 *
+	 * @return The current View distance
 	 */
-	public WorldType getLevelType() {
-		return handle.getWorldTypeModifier().read(0);
+	public int getViewDistance() {
+		return handle.getIntegers().read(3);
 	}
 
 	/**
-	 * Set Level Type.
-	 * 
+	 * Set View distance.
+	 *
 	 * @param value - new value.
 	 */
-	public void setLevelType(WorldType value) {
-		handle.getWorldTypeModifier().write(0, value);
+	public void setViewDistance(int value) {
+		handle.getIntegers().write(3, value);
 	}
 
 	/**
@@ -190,7 +240,7 @@ public class WrapperPlayServerLogin extends AbstractPacket {
 	 * @return The current Reduced Debug Info
 	 */
 	public boolean getReducedDebugInfo() {
-		return handle.getBooleans().read(0);
+		return handle.getBooleans().read(1);
 	}
 
 	/**
@@ -199,6 +249,60 @@ public class WrapperPlayServerLogin extends AbstractPacket {
 	 * @param value - new value.
 	 */
 	public void setReducedDebugInfo(boolean value) {
-		handle.getBooleans().write(0, value);
+		handle.getBooleans().write(1, value);
+	}
+
+	/**
+	 * Retrieve Enable respawn screen.
+	 *
+	 * @return The current Enable respawn screen
+	 */
+	public boolean getEnableRespawnScreen() {
+		return this.handle.getBooleans().read(2);
+	}
+
+	/**
+	 * Sets the value of field 'showDeathScreen'
+	 *
+	 * @param value - new value.
+	 */
+	public void setEnableRespawnScreen(boolean value) {
+		this.handle.getBooleans().write(2, value);
+	}
+
+	/**
+	 * Retrieve Debug.
+	 *
+	 * @return The current Debug
+	 */
+	public boolean getDebug() {
+		return this.handle.getBooleans().read(3);
+	}
+
+	/**
+	 * Set Debug.
+	 *
+	 * @param value - new value.
+	 */
+	public void setDebug(boolean value) {
+		this.handle.getBooleans().write(3, value);
+	}
+
+	/**
+	 * Retrieve Flat.
+	 *
+	 * @return The current Flat
+	 */
+	public boolean getFlat() {
+		return this.handle.getBooleans().read(4);
+	}
+
+	/**
+	 * Set Flat.
+	 *
+	 * @param value - new value.
+	 */
+	public void setFlat(boolean value) {
+		this.handle.getBooleans().write(4, value);
 	}
 }

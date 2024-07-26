@@ -22,10 +22,6 @@ import com.comphenix.protocol.PacketType;
 import com.comphenix.protocol.events.PacketContainer;
 import com.comphenix.protocol.wrappers.BlockPosition;
 
-import net.minecraft.server.v1_15_R1.BlockPropertyStructureMode;
-import net.minecraft.server.v1_15_R1.EnumBlockMirror;
-import net.minecraft.server.v1_15_R1.TileEntityStructure;
-
 public class WrapperPlayClientStruct extends AbstractPacket {
 
     public static final PacketType TYPE = PacketType.Play.Client.STRUCT;
@@ -213,7 +209,7 @@ public class WrapperPlayClientStruct extends AbstractPacket {
      * @return The current Metadata
      */
     public String getMetadata() {
-        return handle.getStrings().read(0);
+        return handle.getStrings().read(1);
     }
     
     /**
@@ -221,7 +217,7 @@ public class WrapperPlayClientStruct extends AbstractPacket {
      * @param value - new value.
      */
     public void setMetadata(String value) {
-        handle.getStrings().write(0, value);
+        handle.getStrings().write(1, value);
     }
     
     /**

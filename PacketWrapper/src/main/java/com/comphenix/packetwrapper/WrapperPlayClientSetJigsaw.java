@@ -20,6 +20,7 @@ package com.comphenix.packetwrapper;
 
 import com.comphenix.protocol.PacketType;
 import com.comphenix.protocol.events.PacketContainer;
+import com.comphenix.protocol.utility.MinecraftReflection;
 import com.comphenix.protocol.wrappers.BlockPosition;
 import com.comphenix.protocol.wrappers.MinecraftKey;
 
@@ -55,10 +56,10 @@ public class WrapperPlayClientSetJigsaw extends AbstractPacket {
     }
     
     /**
-     * Retrieve Attachment type.
-     * @return The current Attachment type
+     * Retrieve Name.
+     * @return The current Name
      */
-    public MinecraftKey getAttachmentType() {
+    public MinecraftKey getName() {
         return handle.getMinecraftKeys().read(0);
     }
     
@@ -66,26 +67,42 @@ public class WrapperPlayClientSetJigsaw extends AbstractPacket {
      * Set Attachment type.
      * @param value - new value.
      */
-    public void setAttachmentType(MinecraftKey value) {
+    public void setName(MinecraftKey value) {
         handle.getMinecraftKeys().write(0, value);
     }
     
     /**
-     * Retrieve Target pool.
-     * @return The current Target pool
+     * Retrieve Target.
+     * @return The current Target
      */
-    public MinecraftKey getTargetPool() {
+    public MinecraftKey getTarget() {
         return handle.getMinecraftKeys().read(1);
     }
     
     /**
-     * Set Target pool.
+     * Set Target.
      * @param value - new value.
      */
-    public void setTargetPool(MinecraftKey value) {
+    public void setTarget(MinecraftKey value) {
         handle.getMinecraftKeys().write(1, value);
     }
-    
+
+    /**
+     * Retrieve Pool.
+     * @return The current Pool
+     */
+    public MinecraftKey getPool() {
+        return handle.getMinecraftKeys().read(2);
+    }
+
+    /**
+     * Set Pool.
+     * @param value - new value.
+     */
+    public void setPool(MinecraftKey value) {
+        handle.getMinecraftKeys().write(2, value);
+    }
+
     /**
      * Retrieve Final state.
      * <p>
@@ -103,5 +120,28 @@ public class WrapperPlayClientSetJigsaw extends AbstractPacket {
     public void setFinalState(String value) {
         handle.getStrings().write(0, value);
     }
-    
+
+    /**
+     * Retrieve Joint type.
+     * <p>
+     * Notes: rollable if the attached piece can be rotated, else aligned.
+     * @return The current Joint type
+     */
+    public JointType getJointType() {
+        return handle.getEnumModifier(JointType.class, MinecraftReflection.getMinecraftClass("TileEntityJigsaw$JointType")).readSafely(0);
+    }
+
+    /**
+     * Set Joint type.
+     * @param value - new value.
+     */
+    public void setMode(JointType value) {
+        handle.getEnumModifier(JointType.class, MinecraftReflection.getMinecraftClass("TileEntityJigsaw$JointType")).writeSafely(0, value);
+    }
+
+    public enum JointType {
+        ROLLABLE,
+        ALIGNED;
+    }
+
 }
