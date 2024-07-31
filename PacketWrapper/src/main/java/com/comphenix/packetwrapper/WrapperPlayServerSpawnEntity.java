@@ -56,7 +56,7 @@ public class WrapperPlayServerSpawnEntity extends AbstractPacket {
 		public static final int THROWN_ENDERPEARL = 65;
 		public static final int WITHER_SKULL_PROJECTILE = 66;
 		public static final int SHULKER_BULLET = 67;
-		public static final int LLAMA_SPIT = 6;
+		public static final int LLAMA_SPIT = 68;
 		public static final int FALLING_BLOCK = 70;
 		public static final int ITEM_FRAME = 71;
 		public static final int EYE_OF_ENDER = 72;
